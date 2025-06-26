@@ -1,4 +1,8 @@
+CREATE DATABASE Project_uber;
 
+use Project_uber;
+
+set FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS user;
 CREATE TABLE user(
     user_id int not null AUTO_INCREMENT,
@@ -266,3 +270,4 @@ CREATE TABLE referal(
     constraint Fk_user_id_referal FOREIGN KEY(user_id) REFERENCES user(user_id)
 
  )engine=Innodb;
+
