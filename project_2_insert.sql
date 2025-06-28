@@ -7,9 +7,9 @@ set FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS user;
 CREATE TABLE user(
     user_id int not null AUTO_INCREMENT,
-    nama_user VARCHAR(200),
-    no_tlpn_user VARCHAR(200),
-    lokasi_user VARCHAR(200),
+    nama_user VARCHAR(200) NOT NULL DEFAULT 'N/A',
+    no_tlpn_user VARCHAR(200) NOT NULL DEFAULT 'N/A' UNIQUE,
+    lokasi_user VARCHAR(200) NOT NULL DEFAULT 'N/A',
     PRIMARY KEY(user_id)
 )ENGINE=Innodb;
 
@@ -17,8 +17,8 @@ DROP TABLE IF EXISTS driver;
 CREATE TABLE driver(
     driver_id INT not NULL AUTO_INCREMENT,
     user_id int NOT null,
-    no_telp_driver VARCHAR(200),
-    lokasi_driver VARCHAR(200),
+    no_telp_driver VARCHAR(200) NOT NULL DEFAULT 'N/A' UNIQUE,
+    lokasi_driver VARCHAR(200) NOT NULL DEFAULT 'N/A',
     PRIMARY key(driver_id),
     constraint Fk_user_id_driver FOREIGN key(user_id) REFERENCES user(user_id)
 )ENGINE=Innodb;
@@ -27,8 +27,8 @@ DROP TABLE IF EXISTS rider;
 CREATE TABLE rider(
     rider_id int NOT NULL AUTO_INCREMENT,
     user_id int not NULL,
-    no_telpn_rider VARCHAR(200),
-    lokasi_rider VARCHAR(200),
+    no_telpn_rider VARCHAR(200) NOT NULL DEFAULT 'N/A' UNIQUE,
+    lokasi_rider VARCHAR(200) NOT NULL DEFAULT 'N/A',
     PRIMARY KEY(rider_id),
     constraint Fk_user_id_rider foreign KEY(user_id)REFERENCES USER(user_id)
 )ENGINE=Innodb;
@@ -36,7 +36,7 @@ CREATE TABLE rider(
 DROP TABLE IF EXISTS vehicletype;
 CREATE TABLE vehicletype(
     vehicle_type_id int not null AUTO_INCREMENT,
-    tipe_kendaraan ENUM('motor','mobil'),
+    tipe_kendaraan ENUM('motor','mobil') NOT NULL DEFAULT 'motor',
     PRIMARY KEY(vehicle_type_id)
 )ENGINE=Innodb;
 
@@ -45,7 +45,7 @@ CREATE TABLE vehicle(
     vehicle_id int NOT NULL AUTO_INCREMENT,
     driver_id int not NULL,
     vehicle_type_id int NOT NULL,
-    jenis ENUM('UberX','UberXL'),
+    jenis ENUM('UberX','UberXL') not NULL DEFAULT 'UberX',
     PRIMARY KEY(vehicle_id),
     constraint Fk_driver_id_vehicle foreign  KEY(driver_id)REFERENCES driver(driver_id),
     constraint Fk_vehicle_type_id FOREIGN KEY(vehicle_type_id)REFERENCES vehicletype(vehicle_type_id)
@@ -55,9 +55,9 @@ DROP TABLE IF EXISTS license;
 CREATE TABLE license(
     license_id int not null AUTO_INCREMENT,
     driver_id int NOT NULL,
-    status_licensi VARCHAR(200),
-    tanggal_licensi DATE,
-    jenis_licensi VARCHAR(200),
+    status_licensi VARCHAR(200) NOT NULL DEFAULT 'N/A',
+    tanggal_licensi DATE NOT NULL,
+    jenis_licensi VARCHAR(200) NOT NULL DEFAULT 'N/A',
     PRIMARY KEY(license_id),
     constraint Fk_driver_id_license FOREIGN KEY(driver_id)REFERENCES driver(driver_id)
 )ENGINE=Innodb;
@@ -65,16 +65,16 @@ CREATE TABLE license(
 DROP TABLE IF EXISTS tripstatus;
 create table tripstatus(
     trip_status_id int NOT NULL AUTO_INCREMENT,
-    nama_status ENUM('aktif','dibatalkan','selesai'),
+    nama_status ENUM('aktif','dibatalkan','selesai') NOT NULL DEFAULT 'dibatalkan',
     PRIMARY KEY(trip_status_id)
 )ENGINE=Innodb;
 
 DROP TABLE IF EXISTS promocode;
 CREATE TABLE promocode(
     promo_id int not NULL AUTO_INCREMENT,
-    kode_promo VARCHAR(200),
-    diskon int NOT NULL,
-    batas_berlaku varchar(200),
+    kode_promo VARCHAR(200) NOT NULL DEFAULT 'N/A' UNIQUE,
+    diskon int NOT NULL ,
+    batas_berlaku varchar(200) NOT NULL DEFAULT 'N/A',
     primary key(promo_id)
 )ENGINE=Innodb;
 
@@ -85,11 +85,11 @@ CREATE TABLE trip(
     driver_id int NOT NULL,
     trip_status_id INT NOT NULL,
     promo_id int NOT NULL,
-    waktu_mulai DATETIME,
-    waktu_selesai DATETIME,
-    biaya DECIMAL(10,2),
-    lokasi_awal VARCHAR(200),
-    lokasi_tujuan VARCHAR(200),
+    waktu_mulai DATETIME NOT NULL ,
+    waktu_selesai DATETIME NOT NULL,
+    biaya DECIMAL(10,2) NOT NULL,
+    lokasi_awal VARCHAR(200) NOT NULL DEFAULT 'N/A',
+    lokasi_tujuan VARCHAR(200) NOT NULL DEFAULT 'N/A',
     PRIMARY key(trip_id),
     CONSTRAINT Fk_rider_id_trip FOREIGN KEY(rider_id) REFERENCES rider(rider_id),
     constraint Fk_driver_id_trip FOREIGN KEY(driver_id) REFERENCES driver(driver_id),
@@ -101,7 +101,7 @@ CREATE TABLE trip(
 DROP TABLE IF EXISTS paymentmethod;
 CREATE TABLE paymentmethod(
     payment_method_id int not NULL AUTO_INCREMENT,
-    nama_metode enum('tunai','qris','e-pay','transfer'),
+    nama_metode enum('tunai','qris','e-pay','transfer') NOT NULL DEFAULT 'tunai',
     PRIMARY key(payment_method_id)
 )ENGINE=Innodb;
 
@@ -111,7 +111,7 @@ CREATE TABLE payment(
     trip_id int NOT null,
     payment_method_id int NOT NULL,
     jumlah INT not NULL,
-    status_pembayaran ENUM('lunas','belum'),
+    status_pembayaran ENUM('lunas','belum') NOT NULL DEFAULT 'belum',
     PRIMARY KEY(payment_id) ,
     constraint Fk_trip_id_payment FOREIGN key(trip_id) REFERENCES trip(trip_id),
     constraint Fk_payment_method_id FOREIGN KEY(payment_method_id) REFERENCES paymentmethod(payment_method_id)
@@ -122,8 +122,8 @@ CREATE TABLE rating(
     rating_id int NOT NULL AUTO_INCREMENT,
     trip_id int not null,
     user_id INT NOT NULL,
-    nilai_rating ENUM('baik','buruk'),
-    komentar VARCHAR(200),
+    nilai_rating ENUM('baik','buruk') NOT NULL DEFAULT 'baik',
+    komentar TEXT ,
     PRIMARY key(rating_id),
     constraint Fk_trip_id_rating FOREIGN key(trip_id) REFERENCES trip(trip_id),
     constraint FK_user_id_rating FOREIGN key(user_id) REFERENCES user(user_id)
@@ -133,9 +133,9 @@ DROP TABLE IF EXISTS location;
 CREATE TABLE location(
     location_id int NOT null AUTO_INCREMENT,
     user_id int not NULL,
-    label VARCHAR(200),
-    latitude DECIMAL(10,6),
-    longitude DECIMAL(10,6),
+    label VARCHAR(200) NOT NULL DEFAULT 'N/A',
+    latitude DECIMAL(10,6) NOT NULL ,
+    longitude DECIMAL(10,6) NOT NULL,
     primary KEY(location_id),
     constraint Fk_user_id_location FOREIGN KEY(user_id) REFERENCES user(user_id)
     
@@ -145,9 +145,9 @@ DROP TABLE IF EXISTS  triproute;
 CREATE TABLE triproute(
     trip_route_id INT NOT NULL AUTO_INCREMENT,
     trip_id int not NULL,
-    titik_awal VARCHAR(200),
-    titik_tengah VARCHAR(200),
-    titik_akhir VARCHAR(200),
+    titik_awal VARCHAR(200) NOT NULL DEFAULT 'N/A',
+    titik_tengah VARCHAR(200) NOT NULL DEFAULT 'N/A',
+    titik_akhir VARCHAR(200) NOT NULL DEFAULT 'N/A',
     PRIMARY KEY(trip_route_id),
     constraint Fk_trip_id_triproute FOREIGN KEY(trip_id) REFERENCES trip(trip_id)
 )ENGINE=Innodb;
@@ -156,9 +156,9 @@ DROP TABLE IF EXISTS Notification;
 CREATE TABLE Notification(
     notification_id INT NOT NULL AUTO_INCREMENT,
     user_id int not NULL,
-    isi_pesan VARCHAR(200),
-    waktu_dikirim TIMESTAMP,
-    dibaca_status ENUM('dibaca','belum dibaca'),
+    isi_pesan VARCHAR(200) NOT NULL DEFAULT 'N/A',
+    waktu_dikirim TIMESTAMP NOT NULL ,
+    dibaca_status ENUM('dibaca','belum dibaca') NOT NULL DEFAULT 'belum dibaca',
     PRIMARY KEY(notification_id),
     constraint Fk_user_id_notification FOREIGN KEY(user_id) REFERENCES user(user_id)
 )ENGINE=Innodb;
@@ -166,7 +166,7 @@ CREATE TABLE Notification(
 DROP TABLE IF EXISTS SupportCategory;
 CREATE TABLE SupportCategory(
     support_category_id INT NOT NULL AUTO_INCREMENT,
-    nama_kategori VARCHAR(200),
+    nama_kategori VARCHAR(200) NOT NULL DEFAULT 'N/A',
     PRIMARY KEY(support_category_id)
 )ENGINE=Innodb;
 
@@ -175,8 +175,8 @@ CREATE TABLE SupportTicket(
     ticket_id INT NOT NULL AUTO_INCREMENT,
     user_id int not NULL,
     support_category_id int NOT NULL,
-    isi_ticket VARCHAR(200),
-    status_ticket ENUM("baru","proses","selesai"),
+    isi_ticket VARCHAR(200) NOT NULL DEFAULT 'N/A',
+    status_ticket ENUM("baru","proses","selesai") NOT NULL DEFAULT 'selesai',
     PRIMARY KEY(ticket_id),
     constraint Fk_user_id_supportticket FOREIGN KEY(user_id) REFERENCES user(user_id),
     constraint Fk_support_category_id FOREIGN KEY(support_category_id) REFERENCES SupportCategory(support_category_id)
@@ -186,8 +186,8 @@ DROP TABLE IF EXISTS DriverAvailability;
 CREATE TABLE DriverAvailability(
     availability_id INT NOT NULL AUTO_INCREMENT,
     driver_id int not NULL,
-    status ENUM('aktif','tidak') DEFAULT "aktif",
-    waktu TIMESTAMP,
+    status ENUM('aktif','tidak') not NULL DEFAULT "aktif",
+    waktu TIMESTAMP not NULL,
     PRIMARY KEY(availability_id),
     constraint Fk_user_id_driveravailability FOREIGN KEY(driver_id) REFERENCES driver(driver_id)
 )ENGINE=Innodb;
@@ -216,9 +216,9 @@ DROP TABLE IF EXISTS  Feedback;
 create table Feedback(
     feedback_id INT not NULL AUTO_INCREMENT,
     user_id int not NULL,
-    submitted_at DATETIME,
-    feedback_text TEXT,
-    response_status ENUM("dijawab","belum"),
+    submitted_at DATETIME not NULL,
+    feedback_text TEXT ,
+    response_status ENUM("dijawab","belum") NOT NULL DEFAULT 'belum',
     PRIMARY KEY(feedback_id),
     constraint Fk_user_id_feedback FOREIGN KEY(user_id)REFERENCES user(user_id)
 )ENGINE=Innodb;
@@ -227,7 +227,7 @@ DROP TABLE IF EXISTS LoginHistory;
 create table LoginHistory(
     login_id INT not NULL AUTO_INCREMENT,
     user_id int not NULL,   
-    waktu_login DATETIME,
+    waktu_login DATETIME NOT NULL,
     PRIMARY KEY(login_id),
     constraint Fk_user_id_loginhistory FOREIGN KEY(user_id)REFERENCES user(user_id)
 )ENGINE=Innodb;
@@ -236,8 +236,8 @@ DROP TABLE IF EXISTS Device;
 create table  Device(
     device_id INT not NULL AUTO_INCREMENT,
     user_id int not NULL,
-    device_type VARCHAR(200) ,
-    os_version VARCHAR(200),
+    device_type VARCHAR(200) NOT NULL DEFAULT 'N/A',
+    os_version VARCHAR(200) NOT NULL DEFAULT 'N/A',
     last_login DATETIME,
     PRIMARY KEY(device_id),
     constraint Fk_user_id_device FOREIGN KEY(user_id)REFERENCES user(user_id)
@@ -260,14 +260,15 @@ CREATE TABLE referal(
     referal_id int not NULL AUTO_INCREMENT,
     user_id int not null,
     reffered_user_id int ,
-    kode_refferal VARCHAR(200),
-    tanggal_penggunaan DATE,
+    kode_refferal VARCHAR(200) NOT NULL DEFAULT 'N/A' UNIQUE,
+    tanggal_penggunaan DATE not NULL,
     PRIMARY key(referal_id),
     constraint Fk_user_id_referal FOREIGN KEY(user_id) REFERENCES user(user_id),
     CONSTRAINT Fk_reffered_user_id FOREIGN KEY(reffered_user_id) REFERENCES user(user_id)
 
  )ENGINE=Innodb;
 
+/*
 INSERT INTO user(nama_user,no_tlpn_user,lokasi_user) VALUES
 ('Andi Saputra','0812-1234-5678','Jakarta'),
 ('Budi Santoso','0821-8765-4321','Bandung'),
@@ -355,3 +356,4 @@ INSERT INTO tripstatus(nama_status) VALUES
 ('dibatalkan'),
 ('selesai'),
 ('aktif');
+*/
