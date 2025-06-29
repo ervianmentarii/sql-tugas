@@ -20,7 +20,7 @@ CREATE TABLE driver(
     no_telp_driver VARCHAR(200) NOT NULL DEFAULT 'N/A' UNIQUE,
     lokasi_driver VARCHAR(200) NOT NULL DEFAULT 'N/A',
     PRIMARY key(driver_id),
-    constraint Fk_user_id_driver FOREIGN key(user_id) REFERENCES user(user_id)
+    constraint Fk_user_id_driver FOREIGN key(user_id) REFERENCES user(user_id) ON UPDATE CASCADE ON DELETE CASCADE
 )ENGINE=Innodb;
 
 DROP TABLE IF EXISTS rider;
@@ -30,7 +30,7 @@ CREATE TABLE rider(
     no_telpn_rider VARCHAR(200) NOT NULL DEFAULT 'N/A' UNIQUE,
     lokasi_rider VARCHAR(200) NOT NULL DEFAULT 'N/A',
     PRIMARY KEY(rider_id),
-    constraint Fk_user_id_rider foreign KEY(user_id)REFERENCES USER(user_id)
+    constraint Fk_user_id_rider foreign KEY(user_id)REFERENCES USER(user_id) ON UPDATE CASCADE ON DELETE CASCADE
 )ENGINE=Innodb;
 
 DROP TABLE IF EXISTS vehicletype;
@@ -47,8 +47,8 @@ CREATE TABLE vehicle(
     vehicle_type_id int NOT NULL,
     jenis ENUM('UberX','UberXL') not NULL DEFAULT 'UberX',
     PRIMARY KEY(vehicle_id),
-    constraint Fk_driver_id_vehicle foreign  KEY(driver_id)REFERENCES driver(driver_id),
-    constraint Fk_vehicle_type_id FOREIGN KEY(vehicle_type_id)REFERENCES vehicletype(vehicle_type_id)
+    constraint Fk_driver_id_vehicle foreign  KEY(driver_id)REFERENCES driver(driver_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    constraint Fk_vehicle_type_id FOREIGN KEY(vehicle_type_id)REFERENCES vehicletype(vehicle_type_id) ON UPDATE CASCADE ON DELETE CASCADE
 )ENGINE=Innodb;
 
 DROP TABLE IF EXISTS license;
@@ -59,7 +59,7 @@ CREATE TABLE license(
     tanggal_licensi DATE NOT NULL,
     jenis_licensi VARCHAR(200) NOT NULL DEFAULT 'N/A',
     PRIMARY KEY(license_id),
-    constraint Fk_driver_id_license FOREIGN KEY(driver_id)REFERENCES driver(driver_id)
+    constraint Fk_driver_id_license FOREIGN KEY(driver_id)REFERENCES driver(driver_id) ON UPDATE CASCADE ON DELETE CASCADE
 )ENGINE=Innodb;
 
 DROP TABLE IF EXISTS tripstatus;
@@ -91,10 +91,10 @@ CREATE TABLE trip(
     lokasi_awal VARCHAR(200) NOT NULL DEFAULT 'N/A',
     lokasi_tujuan VARCHAR(200) NOT NULL DEFAULT 'N/A',
     PRIMARY key(trip_id),
-    CONSTRAINT Fk_rider_id_trip FOREIGN KEY(rider_id) REFERENCES rider(rider_id),
-    constraint Fk_driver_id_trip FOREIGN KEY(driver_id) REFERENCES driver(driver_id),
-    constraint Fk_trip_status_id FOREIGN KEY(trip_status_id) REFERENCES tripstatus(trip_status_id),
-    constraint Fk_promo_id_trip FOREIGN KEY(promo_id) REFERENCES promocode(promo_id)
+    CONSTRAINT Fk_rider_id_trip FOREIGN KEY(rider_id) REFERENCES rider(rider_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    constraint Fk_driver_id_trip FOREIGN KEY(driver_id) REFERENCES driver(driver_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    constraint Fk_trip_status_id FOREIGN KEY(trip_status_id) REFERENCES tripstatus(trip_status_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    constraint Fk_promo_id_trip FOREIGN KEY(promo_id) REFERENCES promocode(promo_id) ON UPDATE CASCADE ON DELETE CASCADE
 
 )ENGINE=Innodb;
 
@@ -113,8 +113,8 @@ CREATE TABLE payment(
     jumlah INT not NULL,
     status_pembayaran ENUM('lunas','belum') NOT NULL DEFAULT 'belum',
     PRIMARY KEY(payment_id) ,
-    constraint Fk_trip_id_payment FOREIGN key(trip_id) REFERENCES trip(trip_id),
-    constraint Fk_payment_method_id FOREIGN KEY(payment_method_id) REFERENCES paymentmethod(payment_method_id)
+    constraint Fk_trip_id_payment FOREIGN key(trip_id) REFERENCES trip(trip_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    constraint Fk_payment_method_id FOREIGN KEY(payment_method_id) REFERENCES paymentmethod(payment_method_id) ON UPDATE CASCADE ON DELETE CASCADE
 )ENGINE=Innodb;
 
 DROP TABLE IF EXISTS rating;
@@ -125,8 +125,8 @@ CREATE TABLE rating(
     nilai_rating ENUM('baik','buruk') NOT NULL DEFAULT 'baik',
     komentar TEXT ,
     PRIMARY key(rating_id),
-    constraint Fk_trip_id_rating FOREIGN key(trip_id) REFERENCES trip(trip_id),
-    constraint FK_user_id_rating FOREIGN key(user_id) REFERENCES user(user_id)
+    constraint Fk_trip_id_rating FOREIGN key(trip_id) REFERENCES trip(trip_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    constraint FK_user_id_rating FOREIGN key(user_id) REFERENCES user(user_id) ON UPDATE CASCADE ON DELETE CASCADE
 )ENGINE=Innodb;
 
 DROP TABLE IF EXISTS location;
@@ -137,7 +137,7 @@ CREATE TABLE location(
     latitude DECIMAL(10,6) NOT NULL ,
     longitude DECIMAL(10,6) NOT NULL,
     primary KEY(location_id),
-    constraint Fk_user_id_location FOREIGN KEY(user_id) REFERENCES user(user_id)
+    constraint Fk_user_id_location FOREIGN KEY(user_id) REFERENCES user(user_id) ON UPDATE CASCADE ON DELETE CASCADE
     
 )ENGINE=Innodb;
 
@@ -149,7 +149,7 @@ CREATE TABLE triproute(
     titik_tengah VARCHAR(200) NOT NULL DEFAULT 'N/A',
     titik_akhir VARCHAR(200) NOT NULL DEFAULT 'N/A',
     PRIMARY KEY(trip_route_id),
-    constraint Fk_trip_id_triproute FOREIGN KEY(trip_id) REFERENCES trip(trip_id)
+    constraint Fk_trip_id_triproute FOREIGN KEY(trip_id) REFERENCES trip(trip_id) ON UPDATE CASCADE ON DELETE CASCADE
 )ENGINE=Innodb;
 
 DROP TABLE IF EXISTS Notification;
@@ -160,7 +160,7 @@ CREATE TABLE Notification(
     waktu_dikirim TIMESTAMP NOT NULL ,
     dibaca_status ENUM('dibaca','belum dibaca') NOT NULL DEFAULT 'belum dibaca',
     PRIMARY KEY(notification_id),
-    constraint Fk_user_id_notification FOREIGN KEY(user_id) REFERENCES user(user_id)
+    constraint Fk_user_id_notification FOREIGN KEY(user_id) REFERENCES user(user_id) ON UPDATE CASCADE ON DELETE CASCADE
 )ENGINE=Innodb;
 
 DROP TABLE IF EXISTS SupportCategory;
@@ -178,8 +178,8 @@ CREATE TABLE SupportTicket(
     isi_ticket VARCHAR(200) NOT NULL DEFAULT 'N/A',
     status_ticket ENUM("baru","proses","selesai") NOT NULL DEFAULT 'selesai',
     PRIMARY KEY(ticket_id),
-    constraint Fk_user_id_supportticket FOREIGN KEY(user_id) REFERENCES user(user_id),
-    constraint Fk_support_category_id FOREIGN KEY(support_category_id) REFERENCES SupportCategory(support_category_id)
+    constraint Fk_user_id_supportticket FOREIGN KEY(user_id) REFERENCES user(user_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    constraint Fk_support_category_id FOREIGN KEY(support_category_id) REFERENCES SupportCategory(support_category_id) ON UPDATE CASCADE ON DELETE CASCADE
 )ENGINE=Innodb;
 
 DROP TABLE IF EXISTS DriverAvailability;
@@ -189,7 +189,7 @@ CREATE TABLE DriverAvailability(
     status ENUM('aktif','tidak') not NULL DEFAULT "aktif",
     waktu TIMESTAMP not NULL,
     PRIMARY KEY(availability_id),
-    constraint Fk_user_id_driveravailability FOREIGN KEY(driver_id) REFERENCES driver(driver_id)
+    constraint Fk_user_id_driveravailability FOREIGN KEY(driver_id) REFERENCES driver(driver_id) ON UPDATE CASCADE ON DELETE CASCADE
 )ENGINE=Innodb;
 
 DROP TABLE IF EXISTS PricingPolicy;
@@ -208,8 +208,8 @@ create table trippromo(
     promo_id INT NOT NULL,
     jumlah_diskon INT  NULL,
     PRIMARY KEY(trip_promo_id),
-    constraint Fk_trip_id_trippromo FOREIGN KEY(trip_id) REFERENCES trip(trip_id),
-    constraint fk_promo_id_trippromo FOREIGN KEY(promo_id) REFERENCES promocode(promo_id)
+    constraint Fk_trip_id_trippromo FOREIGN KEY(trip_id) REFERENCES trip(trip_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    constraint fk_promo_id_trippromo FOREIGN KEY(promo_id) REFERENCES promocode(promo_id) ON UPDATE CASCADE ON DELETE CASCADE
 )ENGINE=Innodb;
 
 DROP TABLE IF EXISTS  Feedback;
@@ -220,7 +220,7 @@ create table Feedback(
     feedback_text TEXT ,
     response_status ENUM("dijawab","belum") NOT NULL DEFAULT 'belum',
     PRIMARY KEY(feedback_id),
-    constraint Fk_user_id_feedback FOREIGN KEY(user_id)REFERENCES user(user_id)
+    constraint Fk_user_id_feedback FOREIGN KEY(user_id)REFERENCES user(user_id) ON UPDATE CASCADE ON DELETE CASCADE
 )ENGINE=Innodb;
 
 DROP TABLE IF EXISTS LoginHistory;
@@ -229,7 +229,7 @@ create table LoginHistory(
     user_id int not NULL,   
     waktu_login DATETIME NOT NULL,
     PRIMARY KEY(login_id),
-    constraint Fk_user_id_loginhistory FOREIGN KEY(user_id)REFERENCES user(user_id)
+    constraint Fk_user_id_loginhistory FOREIGN KEY(user_id)REFERENCES user(user_id) ON UPDATE CASCADE ON DELETE CASCADE
 )ENGINE=Innodb;
 
 DROP TABLE IF EXISTS Device;
@@ -240,7 +240,7 @@ create table  Device(
     os_version VARCHAR(200) NOT NULL DEFAULT 'N/A',
     last_login DATETIME,
     PRIMARY KEY(device_id),
-    constraint Fk_user_id_device FOREIGN KEY(user_id)REFERENCES user(user_id)
+    constraint Fk_user_id_device FOREIGN KEY(user_id)REFERENCES user(user_id) ON UPDATE CASCADE ON DELETE CASCADE
 )ENGINE=Innodb;
 
 DROP TABLE IF EXISTS Report;
@@ -251,8 +251,8 @@ create table Report(
     isi_laporan TEXT,
     waktu TIMESTAMP,
     PRIMARY KEY(report_id),
-    constraint Fk_user_id_report FOREIGN KEY(user_id)REFERENCES user(user_id),
-    constraint Fk_trip_id_report FOREIGN key(trip_id) REFERENCES trip(trip_id)
+    constraint Fk_user_id_report FOREIGN KEY(user_id)REFERENCES user(user_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    constraint Fk_trip_id_report FOREIGN key(trip_id) REFERENCES trip(trip_id) ON UPDATE CASCADE ON DELETE CASCADE
 )ENGINE=Innodb;
 
 DROP TABLE IF EXISTS referal;
@@ -263,8 +263,8 @@ CREATE TABLE referal(
     kode_refferal VARCHAR(200) NOT NULL DEFAULT 'N/A' UNIQUE,
     tanggal_penggunaan DATE not NULL,
     PRIMARY key(referal_id),
-    constraint Fk_user_id_referal FOREIGN KEY(user_id) REFERENCES user(user_id),
-    CONSTRAINT Fk_reffered_user_id FOREIGN KEY(reffered_user_id) REFERENCES user(user_id)
+    constraint Fk_user_id_referal FOREIGN KEY(user_id) REFERENCES user(user_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT Fk_reffered_user_id FOREIGN KEY(reffered_user_id) REFERENCES user(user_id) ON UPDATE CASCADE ON DELETE CASCADE
 
  )ENGINE=Innodb;
 
@@ -715,3 +715,41 @@ SELECT * from license;
 
 DELETE FROM  payment WHERE jumlah<1;--5
 SELECT * from payment;
+
+CREATE VIEW view_info_user_and_driver_1 AS
+SELECT u.user_id,u.nama_user,u.no_tlpn_user,u.lokasi_user,d.driver_id,
+d.no_telp_driver,d.lokasi_driver,v.jenis,t.tipe_kendaraan
+FROM driver d 
+INNER JOIN user u on d.user_id=u.user_id
+INNER JOIN location l on u.user_id=l.user_id
+inner join vehicle v on d.driver_id = v.driver_id
+inner join  vehicletype t on t.vehicle_type_id=v.vehicle_type_id;
+select * from view_info_user_and_driver_1;
+
+CREATE VIEW view_info_trip_2 AS
+SELECT r.trip_id,r.trip_route_id,r.titik_awal,r.titik_akhir,o.promo_id,o.jumlah_diskon,
+m.nama_metode,p.jumlah,p.status_pembayaran 
+from trip t
+INNER JOIN payment p ON t.trip_id=p.trip_id
+INNER JOIN paymentmethod m ON m.payment_method_id=p.payment_method_id
+INNER JOIN triproute r ON r.trip_id=t.trip_id
+INNER JOIN trippromo o on o.trip_id=t.trip_id;
+SELECT * FROM view_info_trip_2;
+
+CREATE VIEW view_info_review_user_3 AS
+SELECT u.user_id,u.nama_user,r.nilai_rating,r.komentar,l.waktu_login,
+f.submitted_at,f.feedback_text,f.response_status,p.trip_id,p.isi_laporan
+FROM user u 
+INNER JOIN rating r ON r.user_id=u.user_id
+INNER JOIN LoginHistory l ON l.user_id=u.user_id
+INNER JOIN Feedback f ON f.user_id=u.user_id
+INNER JOIN Report p ON p.user_id=u.user_id ;
+SELECT * FROM view_info_review_user_3;
+
+CREATE VIEW view_info_Device_4 AS
+SELECT u.user_id,u.nama_user,d.device_type,d.os_version,d.last_login
+FROM user u
+INNER JOIN Notification n ON n.user_id=u.user_id
+INNER JOIN Device d ON d.user_id=u.user_id;
+SELECT * FROM view_info_Device_4;
+
