@@ -3,6 +3,7 @@ CREATE DATABASE Project_uber;
 
 use Project_uber;
 
+set SQL_SAFE_UPDATES = 0;
 set FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS user;
 CREATE TABLE user(
