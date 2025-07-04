@@ -268,7 +268,7 @@ CREATE TABLE referal(
 
  )ENGINE=Innodb;
 
-INSERT INTO user(nama_user,no_tlpn_user,lokasi_user) VALUES --1
+INSERT INTO user(nama_user,no_tlpn_user,lokasi_user) VALUES 
 ('Andi Saputra','0812-1234-5678','Jakarta'),
 ('Budi Santoso','0821-8765-4321','Bandung'),
 ('Citra Dewi','0852-3333-5566','Surabaya'),
@@ -290,7 +290,7 @@ INSERT INTO user(nama_user,no_tlpn_user,lokasi_user) VALUES --1
 ('Surya Dharma','0814-5566-7788','Cirebon'),
 ('Tasya Adina','0833-6677-8899','Bogor');
 
-INSERT INTO driver(user_id,no_telp_driver,lokasi_driver) VALUES --2
+INSERT INTO driver(user_id,no_telp_driver,lokasi_driver) VALUES 
 (1, '(0210) 609 5718', 'Pangkalpinang'),
 (2, '(0239) 127 6823', 'Cilegon'),
 (3, '+62 192-513-6228', 'Tarakan'),
@@ -312,7 +312,7 @@ INSERT INTO driver(user_id,no_telp_driver,lokasi_driver) VALUES --2
 (19, '0814-7788-9900', 'Cirebon'),
 (20, '0833-5566-7788', 'Bogor');
 
-INSERT INTO rider(user_id,no_telpn_rider,lokasi_rider) VALUES --3
+INSERT INTO rider(user_id,no_telpn_rider,lokasi_rider) VALUES 
 (1,'0812-7654-3210','Jakarta'),
 (2,'0823-1234-5678','Bandung'),
 (3,'0856-7788-9900','Surabaya'),
@@ -334,7 +334,7 @@ INSERT INTO rider(user_id,no_telpn_rider,lokasi_rider) VALUES --3
 (19,'0814-3344-8899','Cirebon'),
 (20,'0833-4455-1122','Bogor');
 
-INSERT INTO vehicletype(tipe_kendaraan) VALUES --4
+INSERT INTO vehicletype(tipe_kendaraan) VALUES 
 ('motor'),
 ('mobil'),
 ('motor'),
@@ -356,7 +356,7 @@ INSERT INTO vehicletype(tipe_kendaraan) VALUES --4
 ('motor'),
 ('mobil');
 
-INSERT INTO vehicle(driver_id,vehicle_type_id,jenis) VALUES --5
+INSERT INTO vehicle(driver_id,vehicle_type_id,jenis) VALUES 
 (1,1,'UberX'),
 (2,2,'UberXL'),
 (3,3,'UberX'),
@@ -378,7 +378,7 @@ INSERT INTO vehicle(driver_id,vehicle_type_id,jenis) VALUES --5
 (19,19,'UberXL'),
 (20,20,'UberX');
 
-INSERT INTO license (driver_id,status_licensi,tanggal_licensi,jenis_licensi) VALUES --6
+INSERT INTO license (driver_id,status_licensi,tanggal_licensi,jenis_licensi) VALUES 
 (1,'aktif','2022-01-15','Sim A'),
 (2,'aktif','2022-06-10','Sim C'),
 (3,'nonaktif','2021-12-01','Sim A'),
@@ -400,7 +400,7 @@ INSERT INTO license (driver_id,status_licensi,tanggal_licensi,jenis_licensi) VAL
 (19,'aktif','2024-02-12','Sim A'),
 (20,'aktif','2023-10-30','Sim C');
 
-INSERT INTO tripstatus(nama_status) VALUES --7
+INSERT INTO tripstatus(nama_status) VALUES 
 ('aktif'),
 ('dibatalkan'),
 ('selesai'),
@@ -428,7 +428,7 @@ INSERT INTO tripstatus(nama_status) VALUES --7
 ('selesai'),
 ('aktif');
 
-INSERT INTO promocode(kode_promo,diskon,batas_berlaku) VALUES --8
+INSERT INTO promocode(kode_promo,diskon,batas_berlaku) VALUES 
 ('HEMAT10', 10, '2025-07-31'),
 ('GOJEK20', 20, '2025-08-15'),
 ('GRAB15', 15, '2025-07-10'),
@@ -450,7 +450,7 @@ INSERT INTO promocode(kode_promo,diskon,batas_berlaku) VALUES --8
 ('BONUSONGKIR', 30, '2025-08-05'),
 ('HAPPYRIDES', 15, '2025-09-30');
 
-INSERT INTO trip(rider_id,driver_id,trip_status_id,promo_id,waktu_mulai,waktu_selesai,biaya,lokasi_awal, lokasi_tujuan) VALUES --9
+INSERT INTO trip(rider_id,driver_id,trip_status_id,promo_id,waktu_mulai,waktu_selesai,biaya,lokasi_awal, lokasi_tujuan) VALUES 
 (1, 1, 1, 1, '2025-06-01 08:00:00', '2025-06-01 08:45:00', 25000.00, 'Jakarta', 'Depok'),
 (2, 2, 2, 2, '2025-06-02 09:15:00', '2025-06-02 09:50:00', 32000.00, 'Bandung', 'Cimahi'),
 (3, 3, 3, 3, '2025-06-03 14:00:00', '2025-06-03 14:35:00', 28000.00, 'Surabaya', 'Sidoarjo'),
@@ -472,7 +472,7 @@ INSERT INTO trip(rider_id,driver_id,trip_status_id,promo_id,waktu_mulai,waktu_se
 (19, 19, 19, 19, '2025-06-19 06:30:00', '2025-06-19 07:15:00', 25000.00, 'Cirebon', 'Majalengka'),
 (20, 20, 20, 20, '2025-06-20 08:30:00', '2025-06-20 09:15:00', 29500.00, 'Bogor', 'Depok');
 
-INSERT INTO paymentmethod(nama_metode) VALUES --10
+INSERT INTO paymentmethod(nama_metode) VALUES 
 ('tunai'),
 ('qris'),
 ('e-pay'),
@@ -494,13 +494,13 @@ INSERT INTO paymentmethod(nama_metode) VALUES --10
 ('e-pay'),
 ('transfer');
 
-INSERT INTO payment (trip_id, payment_method_id, jumlah, status_pembayaran) VALUES --11
+INSERT INTO payment (trip_id, payment_method_id, jumlah, status_pembayaran) VALUES 
 (1,1,30000,'lunas'), (2,2,40000,'lunas'), (3,1,0,'belum'), (4,1,25000,'lunas'), (5,3,45000,'lunas'),
 (6,1,0,'belum'), (7,4,20000,'lunas'), (8,2,35000,'lunas'), (9,1,30000,'lunas'), (10,2,0,'belum'),
 (11,2,50000,'lunas'), (12,3,22000,'lunas'), (13,3,0,'belum'), (14,1,15000,'lunas'), (15,4,37000,'lunas'),
 (16,3,53000,'lunas'), (17,2,24000,'lunas'), (18,4,33000,'lunas'), (19,1,40000,'lunas'), (20,2,48000,'lunas');
 
-INSERT INTO rating (trip_id, user_id, nilai_rating, komentar) VALUES--12
+INSERT INTO rating (trip_id, user_id, nilai_rating, komentar) VALUES
 (1, 1, 'baik', 'Pelayanan sangat baik'),
 (2, 2, 'baik', 'Sopir ramah'),
 (4, 4, 'baik', 'Cepat dan aman'),
@@ -522,7 +522,7 @@ INSERT INTO rating (trip_id, user_id, nilai_rating, komentar) VALUES--12
 (10, 10, 'baik', 'Belum ada ulasan'),
 (13, 13, 'baik', 'Belum ada ulasan');
 
-INSERT INTO location (user_id, label, latitude, longitude) VALUES --13
+INSERT INTO location (user_id, label, latitude, longitude) VALUES 
 (1,'Rumah','-6.200000','106.816666'), (2,'Kantor','-6.914744','107.609810'), (3,'Kos','-7.257472','112.752090'),
 (4,'Stasiun','-6.241586','106.992416'), (5,'Bandara','3.595196','98.672226'), (6,'Mall','-5.147665','119.432732'),
 (7,'Taman','-2.990934','104.756554'), (8,'Kampus','-7.005145','110.438125'), (9,'Pasar','-7.801389','110.364722'),
@@ -531,7 +531,7 @@ INSERT INTO location (user_id, label, latitude, longitude) VALUES --13
 (16,'Sekolah','1.4748','124.8421'), (17,'Stadion','-0.9492','100.3543'), (18,'Toko','1.1441','104.0145'),
 (19,'Masjid','-6.7325','108.5523'), (20,'Perpustakaan','-7.9797','112.6304');
 
-INSERT INTO triproute (trip_id, titik_awal, titik_tengah, titik_akhir) VALUES --14
+INSERT INTO triproute (trip_id, titik_awal, titik_tengah, titik_akhir) VALUES 
 (1,'Jakarta','Cawang','Depok'), (2,'Bandung','Cimahi','Bekasi'), (3,'Surabaya','Wonokromo','Sidoarjo'),
 (4,'Bekasi','Cibitung','Jakarta'), (5,'Medan','Tuntungan','Binjai'), (6,'Makassar','Panakkukang','Gowa'),
 (7,'Palembang','Seberang Ulu','Plaju'), (8,'Semarang','Tembalang','Ungaran'), (9,'Yogyakarta','Kaliurang','Sleman'),
@@ -540,7 +540,7 @@ INSERT INTO triproute (trip_id, titik_awal, titik_tengah, titik_akhir) VALUES --
 (16,'Manado','Sario','Bitung'), (17,'Padang','Padang Timur','Bukittinggi'), (18,'Batam','Batu Aji','Tanjungpinang'),
 (19,'Cirebon','Kejaksan','Indramayu'), (20,'Malang','Klojen','Blitar');
 
-INSERT INTO Notification (user_id, isi_pesan, waktu_dikirim, dibaca_status) VALUES --15
+INSERT INTO Notification (user_id, isi_pesan, waktu_dikirim, dibaca_status) VALUES 
 (1,'Promo baru untukmu!',NOW(),'belum dibaca'), (2,'Perjalanan selesai',NOW(),'dibaca'),
 (3,'Driver dalam perjalanan',NOW(),'belum dibaca'), (4,'Dapatkan diskon!',NOW(),'belum dibaca'),
 (5,'Pembayaran berhasil',NOW(),'dibaca'), (6,'Akun login berhasil',NOW(),'dibaca'),
@@ -552,7 +552,7 @@ INSERT INTO Notification (user_id, isi_pesan, waktu_dikirim, dibaca_status) VALU
 (17,'Mohon beri rating driver anda',NOW(),'belum dibaca'), (18,'Laporan berhasil dikirim',NOW(),'dibaca'),
 (19,'Pengaturan akun diperbarui',NOW(),'dibaca'), (20,'Cek perjalanan terakhir anda',NOW(),'belum dibaca');
 
-INSERT INTO SupportCategory(nama_kategori) VALUES --16
+INSERT INTO SupportCategory(nama_kategori) VALUES 
 ('Akun'),
 ('Pembayaran'),
 ('Perjalanan'),
@@ -574,7 +574,7 @@ INSERT INTO SupportCategory(nama_kategori) VALUES --16
 ('Promo'),
 ('Lainnya');
 
-INSERT INTO SupportTicket (user_id, support_category_id, isi_ticket, status_ticket) VALUES --17
+INSERT INTO SupportTicket (user_id, support_category_id, isi_ticket, status_ticket) VALUES 
 (1,1,'Tidak bisa bayar','baru'), (2,2,'Driver kasar','proses'), (3,3,'Promo tidak bisa dipakai','selesai'),
 (4,4,'Aplikasi error','proses'), (5,5,'Ingin kasih saran','baru'), (6,6,'Refund saya belum masuk','selesai'),
 (7,7,'Dana belum kembali','proses'), (8,8,'Perjalanan saya tidak sesuai','selesai'),
@@ -584,7 +584,7 @@ INSERT INTO SupportTicket (user_id, support_category_id, isi_ticket, status_tick
 (17,17,'Driver telat','baru'), (18,18,'Tidak ada driver tersedia','selesai'),
 (19,19,'Promo saya hilang','proses'), (20,20,'Poin tidak masuk','selesai');
 
-INSERT INTO DriverAvailability(driver_id,status,waktu) VALUES --18
+INSERT INTO DriverAvailability(driver_id,status,waktu) VALUES 
 (1, 'aktif', '2025-06-29 08:00:00'),
 (2, 'tidak', '2025-06-29 08:10:00'),
 (3, 'aktif', '2025-06-29 08:15:00'),
@@ -606,7 +606,7 @@ INSERT INTO DriverAvailability(driver_id,status,waktu) VALUES --18
 (4, 'aktif', '2025-06-29 11:15:00'),
 (5, 'aktif', '2025-06-29 11:20:00');
 
-INSERT INTO PricingPolicy(dasar_harga,per_km,per_menit) VALUES --19
+INSERT INTO PricingPolicy(dasar_harga,per_km,per_menit) VALUES 
 (7000, 3000, 500),
 (5000, 2500, 400),
 (10000, 4000, 600),
@@ -628,13 +628,13 @@ INSERT INTO PricingPolicy(dasar_harga,per_km,per_menit) VALUES --19
 (8500, 3600, 550),
 (9500, 4000, 580);
  
-INSERT INTO trippromo (trip_id, promo_id, jumlah_diskon) VALUES --20
+INSERT INTO trippromo (trip_id, promo_id, jumlah_diskon) VALUES 
 (1,1,3000),(2,2,8000),(4,4,3750),(5,5,22500),(7,7,2000),(8,8,10500),
 (9,9,1500),(11,11,10000),(12,12,2200),(14,14,3000),(15,15,14800),
 (16,16,18550),(17,17,3600),(18,18,4950),(19,19,2000),(20,20,4800),
 (3,3,10000),(6,6,1500),(10,10,7200),(13,13,1300);
 
-INSERT INTO Feedback (user_id, submitted_at, feedback_text, response_status) VALUES --21
+INSERT INTO Feedback (user_id, submitted_at, feedback_text, response_status) VALUES 
 (1,NOW(),'Aplikasi bagus','dijawab'), (2,NOW(),'Driver ramah','belum'), (3,NOW(),'Harga terlalu mahal','dijawab'),
 (4,NOW(),'Waktu tunggu lama','belum'), (5,NOW(),'Diskon menarik','dijawab'), (6,NOW(),'Saya suka fiturnya','belum'),
 (7,NOW(),'Harap tambahkan fitur baru','belum'), (8,NOW(),'Saya tidak puas','dijawab'), (9,NOW(),'Layanan mantap','belum'),
@@ -643,11 +643,11 @@ INSERT INTO Feedback (user_id, submitted_at, feedback_text, response_status) VAL
 (16,NOW(),'Map tidak akurat','belum'), (17,NOW(),'Bagus tapi mahal','belum'), (18,NOW(),'Terima kasih','dijawab'),
 (19,NOW(),'Fitur keamanan bagus','belum'), (20,NOW(),'Driver sangat profesional','dijawab');
 
-INSERT INTO LoginHistory (user_id, waktu_login) VALUES --22
+INSERT INTO LoginHistory (user_id, waktu_login) VALUES 
 (1,NOW()), (2,NOW()), (3,NOW()), (4,NOW()), (5,NOW()), (6,NOW()), (7,NOW()), (8,NOW()), (9,NOW()), (10,NOW()),
 (11,NOW()), (12,NOW()), (13,NOW()), (14,NOW()), (15,NOW()), (16,NOW()), (17,NOW()), (18,NOW()), (19,NOW()), (20,NOW());
 
-INSERT INTO Device (user_id, device_type, os_version, last_login) VALUES --23
+INSERT INTO Device (user_id, device_type, os_version, last_login) VALUES 
 (1,'Android','11','2025-06-01 08:00:00'), (2,'iOS','14','2025-06-01 09:00:00'),
 (3,'Android','10','2025-06-02 10:00:00'), (4,'iOS','13','2025-06-02 11:00:00'),
 (5,'Android','12','2025-06-03 12:00:00'), (6,'Android','11','2025-06-04 13:00:00'),
@@ -659,7 +659,7 @@ INSERT INTO Device (user_id, device_type, os_version, last_login) VALUES --23
 (17,'Android','9','2025-06-15 08:00:00'), (18,'iOS','13','2025-06-16 09:00:00'),
 (19,'Android','10','2025-06-17 10:00:00'), (20,'iOS','14','2025-06-18 11:00:00');
 
-INSERT INTO Report (trip_id, user_id, isi_laporan, waktu) VALUES --24
+INSERT INTO Report (trip_id, user_id, isi_laporan, waktu) VALUES 
 (1,1,'Driver ugal-ugalan',NOW()), (2,2,'Biaya tidak sesuai',NOW()), (3,3,'Promo tidak bisa digunakan',NOW()),
 (4,4,'Perjalanan dibatalkan sepihak',NOW()), (5,5,'Driver telat',NOW()), (6,6,'Mobil bau asap rokok',NOW()),
 (7,7,'Sopir tidak ramah',NOW()), (8,8,'Waktu tempuh terlalu lama',NOW()), (9,9,'Aplikasi crash saat booking',NOW()),
@@ -668,7 +668,7 @@ INSERT INTO Report (trip_id, user_id, isi_laporan, waktu) VALUES --24
 (16,16,'Kendaraan tidak layak',NOW()), (17,17,'Driver tidak datang',NOW()), (18,18,'Pengemudi melanggar lalu lintas',NOW()),
 (19,19,'Aplikasi lambat',NOW()), (20,20,'Peta tidak akurat',NOW());
 
-INSERT INTO referal (user_id, reffered_user_id, kode_refferal, tanggal_penggunaan) VALUES --25
+INSERT INTO referal (user_id, reffered_user_id, kode_refferal, tanggal_penggunaan) VALUES 
 (1,2,'REF001','2025-06-01'), (3,4,'REF002','2025-06-02'), (5,6,'REF003','2025-06-03'), (7,8,'REF004','2025-06-04'),
 (9,10,'REF005','2025-06-05'), (11,12,'REF006','2025-06-06'), (13,14,'REF007','2025-06-07'), (15,16,'REF008','2025-06-08'),
 (17,18,'REF009','2025-06-09'), (19,20,'REF010','2025-06-10'), (2,1,'REF011','2025-06-11'), (4,3,'REF012','2025-06-12'),
@@ -676,44 +676,44 @@ INSERT INTO referal (user_id, reffered_user_id, kode_refferal, tanggal_penggunaa
 (14,13,'REF017','2025-06-17'), (16,15,'REF018','2025-06-18'), (18,17,'REF019','2025-06-19'), (20,19,'REF020','2025-06-20');
 
 
-UPDATE user--1
+UPDATE user
 SET nama_user ='Budi Kurniawan' , lokasi_user ='Medan'
 WHERE user_id = 1;
 SELECT * from user;
 
-UPDATE driver--2
+UPDATE driver
 SET  no_telp_driver='+62 821 9892 2016' , lokasi_driver ='Tangerang'
 WHERE driver_id = 2;
 SELECT * from driver;
 
-UPDATE rider--3
+UPDATE rider
 SET  no_telpn_rider='+62 821 9892 2016' , lokasi_rider ='Cempaka'
 WHERE rider_id = 2;
 SELECT * from rider;
 
-UPDATE vehicletype--4
+UPDATE vehicletype
 SET  tipe_kendaraan="mobil"
 WHERE vehicle_type_id = 1;
 SELECT * from vehicletype;
 
-UPDATE vehicle--5
+UPDATE vehicle
 SET  jenis='UberXL'
 WHERE vehicle_id = 1;
 SELECT * from vehicle;
 
-DELETE FROM user WHERE user_id=5;--1
+DELETE FROM user WHERE user_id=5;
 SELECT * from user;
 
-DELETE FROM trippromo WHERE jumlah_diskon>5000;--2
+DELETE FROM trippromo WHERE jumlah_diskon>5000;
 SELECT * from trippromo;
 
-DELETE FROM location WHERE longitude<100 ;--3
+DELETE FROM location WHERE longitude<100 ;
 SELECT * FROM location;
 
-DELETE FROM  license WHERE status_licensi='nonaktif';--4
+DELETE FROM  license WHERE status_licensi='nonaktif';
 SELECT * from license;
 
-DELETE FROM  payment WHERE jumlah<1;--5
+DELETE FROM  payment WHERE jumlah<1;
 SELECT * from payment;
 
 CREATE VIEW view_info_user_and_driver_1 AS
@@ -752,4 +752,3 @@ FROM user u
 INNER JOIN Notification n ON n.user_id=u.user_id
 INNER JOIN Device d ON d.user_id=u.user_id;
 SELECT * FROM view_info_Device_4;
-
